@@ -28,6 +28,10 @@ from Algorithm_Comparison import Tune, Model
 from trainer import trainModel
 from Report import Report
 
+#testing deprecation ignoring
+import warnings
+
+
 
 #
 MAL_FOLDER = ''
@@ -128,8 +132,6 @@ class Instance:
     def getAPIlist(self):
         return self.api
     
-    
-    
     def printIns(self):
         if self.name:
             print 'Instance : ' + self.name + ' md5 checksum: ' + self.getMD5()
@@ -149,6 +151,10 @@ class Instance:
             print '\t' + r 
         if self.isMalicious:
             print '\tMalicious application'
+    
+    #testing warnings        
+#def fxn(self):		warnings.warn("deprecated", DeprecationWarning)
+
 
 def insertToDB(entry, db):
     ''' @arg : entry holds all values for an apk , db connects to sql locahost 
@@ -327,7 +333,7 @@ def specified_set(db):
 def single_APK(db):
     #testing one APK
     
-    data = getAPIfromPkg(#path_to_malware#)
+    data = getAPIfromPkg('path_to_malware') #insert path to single malware here
     entry = parse_data(data,True)
     insertToDB(entry,db)
     db.insertRelation(entry.getappId(),uniquate_list(entry.getappToApiRelation()))
@@ -455,6 +461,11 @@ def getMostAccurateModel(results):#1
 
 
 if __name__== "__main__":
+	#testing deprecation
+	#with warnings.catch_warnings():
+	#	warnings.simplefilter("ignore")
+	#	Instance.fxn()
+
 	parser = OptionParser()
 	for option in options:
 		param = option['name']
