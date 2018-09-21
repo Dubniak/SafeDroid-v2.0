@@ -1,0 +1,4 @@
+2018-09-21 11:31:15,792 - api_generation.py: CRITICAL: reverseAnalysis(): 299:	/home/marios/Downloads/group1/malicious/3f3a35844cc2d3d2a16515f1ffc2eb90620a8a2fc6aa82330256b5086af3bf4e.vir failed
+2018-09-21 11:31:15,792 - api_generation.py: CRITICAL: reverseAnalysis(): 300:	unpack requires a string argument of length 8
+2018-09-21 11:31:51,102 - api_generation.py: CRITICAL: reverseAnalysis(): 299:	/home/marios/Downloads/group1/malicious/17638eb6d883a51e6933fb8d8eceb213de997da320bd2c3c2b79618a8b9804c1.vir failed
+2018-09-21 11:31:51,102 - api_generation.py: CRITICAL: reverseAnalysis(): 300:	unpack requires a string argument of length 8

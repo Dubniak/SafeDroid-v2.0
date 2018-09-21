@@ -5,7 +5,7 @@ A Framework for detecting malicious Android applications
 [SafeDroid v2.0](https://sites.google.com/di.uniroma1.it/safedroid2/home) is a terminal-based framework for reverse engineering, 
 static analysis and classification of Android applications. An early version of the framework can be found [here]( https://github.com/Dubniak/SafeDroid). 
 
-LICENSE
+SafeDroid comes under the GNU GENERAL PUBLIC LICENSE.
 
 The main goal of our work, besides the automated production of fully sufficient prediction and classification 
 models in terms of maximum accuracy scores and minimum negative errors, is to offer an out-of-the-box framework that 

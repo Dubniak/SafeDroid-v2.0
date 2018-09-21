@@ -9,4 +9,4 @@ safedroid.log
 
 #ignore directories
 data_pool/*
-
+Report/*
