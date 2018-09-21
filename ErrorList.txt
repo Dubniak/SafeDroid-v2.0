@@ -1,0 +1,7 @@
+Error 1:
+
+File "/home/marios/SafeDroid-v2.0/sql_db.py", line 47, in initConnection
+    self.log.info('Create schema %s @ %s') % (self.config.schema() ,self.config.host())
+TypeError: unsupported operand type(s) for %: 'NoneType' and 'tuple'
+
+execution : -R 

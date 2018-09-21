@@ -1,0 +1,6 @@
+pandas
+sklearn
+scipy
+joblib
+matplotlib
+
