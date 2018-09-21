@@ -31,14 +31,12 @@ from Report import Report
 #testing deprecation ignoring
 import warnings
 
-
-
 #
-MAL_FOLDER = ''
-BEN_FOLDER = ''
+MAL_FOLDER = '/home/marios/Downloads/group1/malicious/'
+BEN_FOLDER = '/home/marios/Downloads/group1/benign/'
 
 #csv directory, user needs to set up this directory to the absolute path of the installation folder +/data_pool
-_directory_csv = ''
+_directory_csv = '/home/marios/SafeDroid-v2.0/data_pool/'
 
 
 # cmd input options

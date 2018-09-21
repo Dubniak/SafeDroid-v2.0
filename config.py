@@ -15,7 +15,9 @@ class Config:
 			ff = line.split(':')
 			values = []
 			s = ff[1].replace(" ","")
-			if s[0] == '[':  #multiple values for a category
+			
+			#multiple values for a category
+			if s[0] == '[':  
 					s = s.replace("[","")
 					s = s.replace("]","")
 					s = s.replace("\n","")

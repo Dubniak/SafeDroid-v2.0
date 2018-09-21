@@ -1,3 +1,12 @@
 #ignore generated .pyc files
 *.pyc
+
+#ignore configuration files
 database.conf
+
+#ignore logs
+safedroid.log
+
+#ignore directories
+data_pool/*
+
