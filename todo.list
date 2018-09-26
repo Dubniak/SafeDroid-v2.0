@@ -1,0 +1,3 @@
+[.]----- Refactor code
+[+]..... resetDatabase() creates schema when schema_name not exists in the db
+

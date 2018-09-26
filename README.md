@@ -25,23 +25,28 @@ Python 2.7 or newer is standard in all Linux systems.
 -	matplotlib 
 
 Installation :
-pip install -r requirements.txt
+
+`pip install -r requirements.txt`
 
 It also needs:
 -	python-tk 
 -	mysqlclient 1.3.13 (sudo install mysqlcient) 
 
 Install them as:
-apt install python-tk mysqlclient
 
-## Execution ##
+`sudo apt install python-tk mysqlclient`
+
+## Configure database ##
 To run the framework, execute 
-python api_generation.py 
+python safedroid.py [-l] [-m] [-b] [-t] [-r] [-R]
 
 The available parameters are 
--	-h, --help            show this help message and exit
+`	-h, --help            show this help message and exit
 
 	-l LOG, --log=LOG     Log level {DEBUG, INFO, WARN, ERROR, CRITICAL}
+	
+	-t TESTING_MODE, --testing-mode=TESTING_MODE
+							Testing mode {FOLDERS, SET, SINGLE}
   
 	-m MALICIOUS_FOLDER, --malicious-folder=MALICIOUS_FOLDER
 							Malicious input folder {ABSOLUTE PATH}
@@ -49,11 +54,9 @@ The available parameters are
 	-b BENIGN_FOLDER, --benign-folder=BENIGN_FOLDER
 							Benign input folder {ABSOLUTE PATH}
 							
-	-t TESTING_MODE, --testing-mode=TESTING_MODE
-							Testing mode {FOLDERS, SET, SINGLE}
-  
 	-r RESET, --reset=RESET
 							Reset database schema
   
 	-R RESET, --Reset=RESET
 							Reset database schema and exit
+`
