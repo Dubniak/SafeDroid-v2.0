@@ -12,6 +12,7 @@ import sys
 import re
 import logging
 from timeit import default_timer as timer
+from time import gmtime, strftime
 import logging.config
 
 """
@@ -65,6 +66,18 @@ class Preparation:
 		self.size = 0
 		self.sizeCurrent = 0
 		return
+		
+	def set_size(self, size):
+		self.size = size
+		
+	def get_size(self):
+		return self.size
+		
+	def append_file_list(self,path_to_apk):
+		self.file_list.append(path_to_apk)
+		
+	def get_file_list(self):
+		return self.file_list
 		
 	def get_malicous_directory(self):
 		return self.malicious_directory 

@@ -14,8 +14,8 @@ import re
 import logging
 from timeit import default_timer as timer
 import logging.config
-import multiprocessing
-from multiprocessing import Pool
+#import multiprocessing imported in execution
+#from multiprocessing import Pool imported in execution
 from time import gmtime, strftime
 import shlex
 import subprocess
@@ -32,6 +32,7 @@ from Algorithm_Comparison import Tune, Model
 from trainer import trainModel
 from Report import Report
 from preparation import Preparation
+from modes import Execution_Mode
 
 # testing deprecation ignoring
 import warnings
@@ -332,7 +333,7 @@ def main(options, arguments, prepared):
         except:
             prepared.set_parser_error("Please specify a valid log level")
     else:
-        prepard.inform('Logging level auto set to ' + \
+        prepard.inform('Logging level auto set to ' +
             debug_level[log.getEffectiveLevel()])
 
     # Reset Database & Exit
@@ -348,7 +349,8 @@ def main(options, arguments, prepared):
                 if '.vir' in f or '.apk' in f:
                     prepared.set_malicious_directory(options.malicious_folder)
                     found_flag = True
-                    prepared.inform('Malicious folder set to ' + options.malicious_folder)
+                    prepared.inform('Malicious folder set to ' +
+                                    options.malicious_folder)
                     prepared.write_log_info(
                         'Malicious folder set to %s' % options.malicious_folder)
                     break
@@ -389,32 +391,40 @@ def main(options, arguments, prepared):
 
     else:
         if not os.path.exists(prepared.get_benign_directory()):
-            prepared.write_log_critical("%s doesn't exist" % prepared.get_benign_directory())
+            prepared.write_log_critical(
+                "%s doesn't exist" % prepared.get_benign_directory())
             exit()
         print "Benign folder set to default"
-        prepared.write_log_info("Benign folder set to default %s" % prepared.get_benign_directory())
+        prepared.write_log_info(
+            "Benign folder set to default %s" % prepared.get_benign_directory())
 
     # reset Database
-    if (options.reset != None ):
+    if (options.reset != None):
 		resetDatabase(prepared)
 		prepared.inform("Resetting databse......[OK]")
 		return
-        
 
     # mode of execution
     if (options.testing_mode != None):
-        start = timer()
-        prepared.inform('Mode : ' + str(options.testing_mode))
-        prepared.inform_about_starting_time()
-        db = SafeDroidDB(True)
+		execution = Execution_Mode()
+		start = timer()
+		prepared.inform('Mode : ' + str(options.testing_mode))
+		prepared.inform_about_starting_time()
+		db = SafeDroidDB(True)
+		execution.dispatch(options.testing_mode, prepared)
+		'''
         if (options.testing_mode == str(1) or 'FOLDERS' in options.testing_mode):
+			
             folders(db)
         elif (options.testing_mode == str(2) or 'SET' in options.testing_mode):
             specified_set(db)
         elif (options.testing_mode == str(3) or 'SINGLE' in options.testing_mode):
             single_APK(db)
         end = timer()
+		'''
 
+
+    
 
 def extractCSV():
     createDir()

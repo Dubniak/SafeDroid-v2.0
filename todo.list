@@ -1,3 +1,6 @@
 [.]----- Refactor code
-[+]..... resetDatabase() creates schema when schema_name not exists in the db
+
+	[+]..... resetDatabase() creates schema when schema_name not exists in the db
+	[-]..... create helper module to store secondary functions, such as reverseAnalysis, getFolderSize etc.. [ongoing]
+	[.]..... create modules for the different execution modes and a dispatcher [ongoing]
 

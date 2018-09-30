@@ -1,0 +1,43 @@
+2018-09-30 13:20:06,521 - preparation.py: INFO: write_log_info(): 104:	Malicious folder set to /home/marios/Downloads/group2/malicious
+2018-09-30 13:20:06,522 - preparation.py: INFO: write_log_info(): 104:	Benign folder set to /home/marios/Downloads/group1/benign/
+2018-09-30 13:20:06,529 - sql_db.py: ERROR: executeQuery(): 312:	CREATE TABLE `SafeDroid`.`APPLICATIONS` 
+                    ( `AppId` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
+                    `Name` VARCHAR(100) NOT NULL DEFAULT 'nameless' ,
+                    `Md5` VARCHAR(32) NOT NULL ,
+                    `IsMalicious` TINYINT NOT NULL DEFAULT '0',
+                    PRIMARY KEY (`AppId`),
+                    UNIQUE `AppId` (`AppId`))
+                    ENGINE = InnoDB;
+(1050, "Table 'APPLICATIONS' already exists")
+2018-09-30 13:20:06,529 - sql_db.py: ERROR: executeQuery(): 312:	CREATE TABLE `SafeDroid`.`API` 
+                    ( `ApiId` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
+                    `Name` VARCHAR(100) NOT NULL DEFAULT 'none' ,
+                    `MalOcc` INT NOT NULL DEFAULT '0' , 
+                    `BenOcc` INT NOT NULL DEFAULT '0' ,
+                    `Ratio`  FLOAT NOT NULL DEFAULT '0.0',
+                    PRIMARY KEY (`ApiId`))
+                    ENGINE = InnoDB;
+(1050, "Table 'API' already exists")
+2018-09-30 13:20:06,536 - sql_db.py: ERROR: executeQuery(): 312:	CREATE TABLE `SafeDroid`.`PERMISSION` 
+                    ( `PrmId` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
+                    `Name` VARCHAR(100) NOT NULL DEFAULT 'none' ,
+                    `MalOcc` INT NOT NULL DEFAULT '0' , 
+                    `BenOcc` INT NOT NULL DEFAULT '0' ,
+                    `Ratio`  FLOAT NOT NULL DEFAULT '0.0',
+                    PRIMARY KEY (`PrmId`))
+                    ENGINE = InnoDB;
+(1050, "Table 'PERMISSION' already exists")
+2018-09-30 13:20:06,536 - sql_db.py: ERROR: executeQuery(): 312:	CREATE TABLE `SafeDroid`.`APPtoPRM`
+                    (`AppId` INT UNSIGNED NOT NULL,
+                    `PrmId` INT UNSIGNED NOT NULL,
+                    PRIMARY KEY pk_APPtoPRM (`AppId`,`PrmId`))
+                    ENGINE = InnoDB;
+                    
+(1050, "Table 'APPtoPRM' already exists")
+2018-09-30 13:20:06,537 - sql_db.py: ERROR: executeQuery(): 312:	CREATE TABLE `SafeDroid`.`APPtoAPI`
+                    (`AppId` INT UNSIGNED NOT NULL,
+                    `ApiId` INT UNSIGNED NOT NULL,
+                    PRIMARY KEY pk_APPtoAPI (`AppId`,`ApiId`))
+                    ENGINE = InnoDB; 
+                    
+(1050, "Table 'APPtoAPI' already exists")
