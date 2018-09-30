@@ -27,7 +27,7 @@ import vectors
 from vectors import Applications, AppToApi, API
 from feature_vectors import superFeatureVector
 from data import Data, Config
-from sql_db import SafeDroidDB
+from sql_db import SafeDroidDB #imported in servant
 from Algorithm_Comparison import Tune, Model
 from trainer import trainModel
 from Report import Report
@@ -215,7 +215,7 @@ def resetDatabase(prepared):
 
 # Filelist holds sublists of the input APK|VIR files to achieve multiprocessing
 
-
+# renamed to Dispatcher and moved to modes
 class Filelist:
     def __init__(self, overalSize, cpu, fileList, start):
         sublistSize = overalSize / cpu
@@ -256,6 +256,7 @@ def calculatePercentage(part, whole):
     return part/whole
 
 
+'''
 def reverseAnalysis(sources):
     db = SafeDroidDB(False)
     for f in sources:
@@ -278,7 +279,7 @@ def reverseAnalysis(sources):
             log.critical('%s failed' % f)
             log.critical(err)
             pass
-
+'''
 
 # Input files from malicious and benign fodlers
 def folders(db):

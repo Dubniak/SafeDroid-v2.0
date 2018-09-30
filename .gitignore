@@ -6,6 +6,7 @@ database.conf
 
 #ignore logs
 safedroid.log
+safedroid.log
 
 #ignore directories
 data_pool/*

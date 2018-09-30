@@ -1,8 +1,7 @@
 from preparation import Preparation
-#from modes import Dispatcher
 from servant import Servant
-import multiprocessing
-from multiprocessing import Pool
+import multiprocess
+from multiprocess import Pool
 
 '''
 Contains all different modes of execution
@@ -26,10 +25,10 @@ class Directory:
 		number_of_files = 0
 		from modes import Dispatcher
 		#fl = Filelist(len(file_list), multiprocessing.cpu_count(), file_list, 0)
-		fl = Dispatcher(len(prepared.get_file_list()), multiprocessing.cpu_count(), prepared.get_file_list(), 0)
+		fl = Dispatcher(len(prepared.get_file_list()), multiprocess.cpu_count(), prepared.get_file_list(), 0)
 		sub = fl.getSublists()
 		pool = Pool()
-		pool.map(reverseAnalysis, sub)
+		pool.map(self.servant.reverseAnalysis, sub, prepared)
 		pool.close()
 		pool.join()
 
