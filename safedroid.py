@@ -1,7 +1,7 @@
 """
 Part of the SafeDroid v2.0 FrameWork.
 Author : Arygriou Marios
-Year : 2017
+Year : 2018
 The framework is distributed under the GNU General Public License v3.0
 """
 
@@ -14,8 +14,6 @@ import re
 import logging
 from timeit import default_timer as timer
 import logging.config
-#import multiprocessing imported in execution
-#from multiprocessing import Pool imported in execution
 from time import gmtime, strftime
 import shlex
 import subprocess
@@ -32,12 +30,13 @@ from Algorithm_Comparison import Tune, Model
 from trainer import trainModel
 from Report import Report
 from preparation import Preparation
-from modes import Execution_Mode
+#from modes import Execution_Mode #deprecated
+from execution_choices import *
 
 # testing deprecation ignoring
 import warnings
 
-
+# moved to instance.py
 class Instance:
     def __init__(self):
         self.MD5 = ''
@@ -122,86 +121,7 @@ class Instance:
 # def fxn(self):		warnings.warn("deprecated", DeprecationWarning)
 
 
-def insertToDB(entry, db):
-    ''' @arg : entry holds all values for an apk , db connects to sql locahost
-        @ret : None
-    '''
 
-    mal = entry.getMalicious()
-
-    # set entry's api id alongside insertion
-    entry.setappId(db.insertToTable(
-        'APPLICATIONS', entry.getMD5(), entry.getName(), mal))
-
-    apis = entry.getAPIlist()
-    i = 0
-
-    # insert API
-    dist_api = uniquate_list(entry.getAPIlist())
-
-    for api in dist_api:
-
-        a = db.duplicateApi('API', api, mal)
-
-        if (a[0] == -1):  # new API
-            entry.addappToApiRelation(db.insertToTable('API', '', api, mal))
-
-        elif (mal):  # update malicious api
-            db.updateToTable('API', id=a[0], mal_cnt=a[1] + 1)
-            entry.addappToApiRelation(a[0])
-
-        elif (not mal):  # update benign api
-            db.updateToTable('API', id=a[0], ben_cnt=a[1] + 1)
-            entry.addappToApiRelation(a[0])
-
-    # insert permissions
-    for prm in uniquate_list(entry.getPermissions()):
-        p = db.duplicatePermission(prm, mal)
-
-        if (p[0] == -1):  # new PERMISSION
-            entry.addappToPrmRelation(
-                db.insertToTable('PERMISSION', '', prm, mal))
-
-        elif (mal):  # update malicious permission
-            db.updateToTable('PERMISSION', id=p[0], mal_cnt=p[1] + 1)
-            entry.addappToPrmRelation(p[0])
-        elif (not mal):  # update benign permission
-            db.updateToTable('PERMISSION', id=p[0], ben_cnt=p[1] + 1)
-            entry.addappToPrmRelation(p[0])
-
-
-def uniquate_list(item):
-    return list(set(item))
-
-
-def parse_data(data, isMalicious):
-    i = 0  # generic counter, use at will
-    inst = Instance()
-    flag = False
-    if data:
-        for item in data:
-
-            for category, element_tuple in item.iteritems():
-                for name, content in element_tuple:
-                    if content and isinstance(name, str):
-                        for element in content:
-                            if (name is 'activities' and not flag):
-                                inst.setName(
-                                    '.'.join(element.split('.')[:-1])[:100])
-                                flag = True
-                            if (name is 'fingerprint' and 'MD5' in element):  # MD5
-                                inst.setMD5(element[5:])
-                            if (name is 'permissions'):  # permissions
-                                inst.addPermission(element)
-                                i += 1
-                            if (name is 'classes_list' or name is 'internal_classes_list' or name is 'external_classes_list' or name is 'internal_packages_list' or name is 'external_packages_list'):  # API
-                                inst.addApi(element[:100])
-
-    log.info("%s has %d API and %d permissions" % (str(inst.getMD5()),
-                                                   len(inst.getAPIlist()), len(inst.getPermissions())))
-    if isMalicious:
-        inst.setMalicious()
-    return inst
 
 
 def resetDatabase(prepared):
@@ -215,7 +135,7 @@ def resetDatabase(prepared):
 
 # Filelist holds sublists of the input APK|VIR files to achieve multiprocessing
 
-# renamed to Dispatcher and moved to modes
+# renamed to Dispatcher and moved to modes, it's not used any more, keep for back up
 class Filelist:
     def __init__(self, overalSize, cpu, fileList, start):
         sublistSize = overalSize / cpu
@@ -256,46 +176,6 @@ def calculatePercentage(part, whole):
     return part/whole
 
 
-'''
-def reverseAnalysis(sources):
-    db = SafeDroidDB(False)
-    for f in sources:
-        mal = 0
-        log.info('Application examined path: %s' % f)
-        if (MAL_FOLDER in f):
-            mal = 1
-        try:
-            data = getAPIfromPkg(f)
-
-            entry = parse_data(data, mal)
-            if db.exists('APPLICATIONS', entry.getMD5(), entry.getName()):
-                continue
-            insertToDB(entry, db)
-            db.insertRelation(entry.getappId(), uniquate_list(
-                entry.getappToApiRelation()))
-            db.insertAppToPrmRelation(
-                entry.getappId(), uniquate_list(entry.getappToPrmRelation()))
-        except Exception, err:
-            log.critical('%s failed' % f)
-            log.critical(err)
-            pass
-'''
-
-# Input files from malicious and benign fodlers
-def folders(db):
-    global size
-    size = getFolderSize(MAL_FOLDER) + getFolderSize(BEN_FOLDER)
-    size_mal = 0
-    size_ben = 0
-    perv = 0
-    number_of_files = 0
-    fl = Filelist(len(file_list), multiprocessing.cpu_count(), file_list, 0)
-    sub = fl.getSublists()
-    pool = Pool()
-    pool.map(reverseAnalysis, sub)
-    pool.close()
-    pool.join()
-
 
 def specified_set(db):
     # testing specific APKs
@@ -334,12 +214,11 @@ def main(options, arguments, prepared):
         except:
             prepared.set_parser_error("Please specify a valid log level")
     else:
-        prepard.inform('Logging level auto set to ' +
-            debug_level[log.getEffectiveLevel()])
+        prepared.inform(prepared.get_log_level())
 
     # Reset Database & Exit
     if (options.Reset != None and 'yes' in raw_input('Reset database? ')):
-		resetDatabase()
+		resetDatabase(prepared)
 		exit(1)
 
     # Malicious Folder
@@ -407,12 +286,15 @@ def main(options, arguments, prepared):
 
     # mode of execution
     if (options.testing_mode != None):
-		execution = Execution_Mode()
+		print '1'
+		#execution = Execution_Mode()
+		print '2'
 		start = timer()
 		prepared.inform('Mode : ' + str(options.testing_mode))
 		prepared.inform_about_starting_time()
 		db = SafeDroidDB(True)
-		execution.dispatch(options.testing_mode, prepared)
+		
+		execution_dispatch(options.testing_mode, prepared)
 		'''
         if (options.testing_mode == str(1) or 'FOLDERS' in options.testing_mode):
 			
