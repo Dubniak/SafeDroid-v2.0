@@ -45,7 +45,7 @@ class SafeDroidDB:
             ), self.config.password(), self.config.schema())
         except OperationalError:
             self.buildDB()
-            self.db = MySQLdb.connect(self.config.host(), self.config.username(
+            self.db = MySQLdb.connect(self.config.host(), self.config.nautiusername(
             ), self.config.password(), self.config.schema())
             self.log.info('Create schema %s @ %s') % (
                 self.config.schema(), self.config.host())
