@@ -43,6 +43,7 @@ with the ones of the mysql settings, the schema can be set up to anything as it 
 
 ## Configure predection model ##
 SafeDroid allows the selection of the settings for the creation of the prediction model. Configure the file model_training.conf. The file looks like :
+
 `
 DATA SET CONFIGURATION
 sample_reduce_size : [1]
@@ -65,7 +66,8 @@ plot_to_file : [0]
 To run the framework, execute 
 python safedroid.py [-l] [-m] [-b] [-t] [-r] [-R]
 
-The available parameters are 
+The available parameters are :
+
 `	-h, --help            show this help message and exit
 
 	-l LOG, --log=LOG     Log level {DEBUG, INFO, WARN, ERROR, CRITICAL}
@@ -87,4 +89,5 @@ The available parameters are
 `
 
 Example of execution: 
+
 ` python safedroid.py -l CRITICAL -t FOLDERS -m /path/to/malicious/directory -b /path/to/benign/directory `
