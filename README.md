@@ -30,13 +30,38 @@ Installation :
 
 It also needs:
 -	python-tk 
--	mysqlclient 1.3.13 (sudo install mysqlcient) 
+-	mysqlclient 1.3.13 
 
 Install them as:
 
 `sudo apt install python-tk mysqlclient`
 
 ## Configure database ##
+To be able to run SafeDroid, a mysql client is required. Follow the installation instructions to set up a mysql user. After setting up a local or remote MySQL database, configure 
+properly the file database.conf. This is a configuration file and it's needed in order to establish communication with the mysql server. The host, username and password must agree 
+with the ones of the mysql settings, the schema can be set up to anything as it is going to be created during execution. 
+
+## Configure predection model ##
+SafeDroid allows the selection of the settings for the creation of the prediction model. Configure the file model_training.conf. The file looks like :
+`
+DATA SET CONFIGURATION
+sample_reduce_size : [1]
+malicious_size : [1]
+threshold : [0.2]
+
+MODEL CONFIGURATION
+classifier : [all]	 
+
+TRAINING CONFIGURATION
+cv : [5]
+test_size : [0.3] 
+display_plots : [0]
+plot_to_file : [0]
+
+`
+
+
+## Execution ##
 To run the framework, execute 
 python safedroid.py [-l] [-m] [-b] [-t] [-r] [-R]
 
@@ -60,3 +85,6 @@ The available parameters are
 	-R RESET, --Reset=RESET
 							Reset database schema and exit
 `
+
+Example of execution: 
+` python safedroid.py -l CRITICAL -t FOLDERS -m /path/to/malicious/directory -b /path/to/benign/directory `
