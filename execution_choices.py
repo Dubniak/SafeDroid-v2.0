@@ -32,7 +32,8 @@ def poolcontext(*args, **kwargs):
 '''
 	@arg	: Mode of execution as selected by the user
 	@arg	: Preparation object
-	@ret	: Executes appropriate method
+	@ret	: Appropriateexecution method
+	@use	: Dispatcher of execution mode
 '''	
 def execution_dispatch(mode, prepared):
 	dispatcher = {'FOLDERS':execute_directory, 'SINGLE':execute_single}
@@ -192,6 +193,7 @@ def execute_single(source, prepared):
 	prepared.inform('Executing single mode..')
 	return
 
+# Filelist holds sublists of the input APK|VIR files to achieve multiprocessing
 class File_List:
 	def __init__(self, overalSize, cpu, fileList, start):
 		print 'I am here in the new one'

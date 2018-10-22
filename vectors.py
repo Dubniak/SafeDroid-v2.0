@@ -10,14 +10,13 @@ import os
 from sklearn import preprocessing
 import cPickle as pickle
 
+''' 
+	@use	:Create 3 DataFrames from api.csv : overall , malicious , benign
+    @arg filepath : path csv file , string
+    @arg column_names : names for columns , list
 
+'''
 class API:
-    ''' Create 3 DataFrames from api.csv : overall , malicious , benign
-        @arg filepath : path csv file , string
-        @arg column_names : names for columns , list
-
-    '''
-
     def __init__(self, filepath, column_names, app_df_size):
         self._matrix = self.readData(filepath)
         self.setColumnNames(column_names)
@@ -82,10 +81,11 @@ class API:
         # thr = threshold == None ? 0.6 : threshold
         thr = threshold if threshold is not None else 0.6
 
-    def getSubSet(self, indexes):
         '''@ attr indexes : the indexes of the subset
            @ ret : the subset
         '''
+    def getSubSet(self, indexes):
+
         return self._matrix.loc[indexes]
 
     def printSpecific(self, index):

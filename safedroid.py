@@ -20,156 +20,19 @@ import subprocess
 import pickle
 
 # SafeDroid imports
-from create_csv import createDir, createFile
+
 import vectors
 from vectors import Applications, AppToApi, API
-from feature_vectors import superFeatureVector
-from data import Data, Config
 from sql_db import SafeDroidDB #imported in servant
 from Algorithm_Comparison import Tune, Model
 from trainer import trainModel
 from Report import Report
 from preparation import Preparation
-#from modes import Execution_Mode #deprecated
 from execution_choices import *
+from servant import Servant
 
 # testing deprecation ignoring
 import warnings
-
-# moved to instance.py
-class Instance:
-    def __init__(self):
-        self.MD5 = ''
-        self.name = 'none'
-        self.api = []
-        self.receiver = []
-        self.permission = []
-        self.isMalicious = 0
-        self.appId = -1
-        self.appToApiRelation = []
-        self.appToPrmRelation = []
-
-    def setMD5(self, md5):
-        self.MD5 = md5
-
-    def setName(self, name):
-        self.name = name
-
-    def setMalicious(self):
-        self.isMalicious = 1
-
-    def setappId(self, num):
-        self.ApiId = num
-
-    def addApi(self, a):
-        self.api.append(a)
-
-    def addPermission(self, p):
-        self.permission.append(p)
-
-    def addappToApiRelation(self, p):
-        self.appToApiRelation.append(p)
-
-    def addappToPrmRelation(self, p):
-        self.appToPrmRelation.append(p)
-
-    def getappToPrmRelation(self):
-        return self.appToPrmRelation
-
-    def getappToApiRelation(self):
-        return self.appToApiRelation
-
-    def getPermissions(self):
-        return self.permission
-
-    def getMalicious(self):
-        return self.isMalicious
-
-    def getappId(self):
-        return self.ApiId
-
-    def getMD5(self):
-        return str(self.MD5)
-
-    def getName(self):
-        return self.name
-
-    def getAPIlist(self):
-        return self.api
-
-    def printIns(self):
-        if self.name:
-            print 'Instance : ' + self.name + ' md5 checksum: ' + self.getMD5()
-        else:
-            print 'No name. md5 checksum: ' + self.getMD5()
-        print 'API : '
-
-        i = 0
-        for a in self.api:
-            print '\t' + str(i) + '.' + a
-            i = i + 1
-        print 'permissions : '
-        for p in self.permission:
-            print '\t' + p
-        print 'receiver : '
-        for r in self.receiver:
-            print '\t' + r
-        if self.isMalicious:
-            print '\tMalicious application'
-
-    # testing warnings
-# def fxn(self):		warnings.warn("deprecated", DeprecationWarning)
-
-
-
-
-
-def resetDatabase(prepared):
-    t = SafeDroidDB(False)
-    t.dropTable('APPLICATIONS')
-    t.dropTable('API')
-    t.dropTable('APPtoAPI')
-    t.dropTable('PERMISSION')
-    t.dropTable('APPtoPRM')
-    prepared.write_log_info('Resetting Database..Success')
-
-# Filelist holds sublists of the input APK|VIR files to achieve multiprocessing
-
-# renamed to Dispatcher and moved to modes, it's not used any more, keep for back up
-class Filelist:
-    def __init__(self, overalSize, cpu, fileList, start):
-        sublistSize = overalSize / cpu
-        self.sublists = []
-        for i in range(cpu):
-            if (i != cpu-1):
-                sublist = list(fileList[start: sublistSize*(i+1)])
-                start = sublistSize * (i+1)
-            else:
-                sublist = list(fileList[start: overalSize])
-            self.sublists.append(sublist)
-
-    def getSublists(self):
-        return self.sublists
-
-
-def drawProgressBar(percent, barLen=50):
-    sys.stdout.write("\r")
-    progress = ""
-    for i in range(barLen):
-        if i < int(barLen * percent):
-            progress += "="
-        else:
-            progress += " "
-    sys.stdout.write("[ %s ] %.2f%%" % (progress, percent * 100))
-    sys.stdout.flush()
-
-
-def getFolderSize(path):
-    size = 0
-    for f in os.listdir(path):
-        size += os.stat(os.path.join(path, f)).st_size
-        file_list.append(os.path.join(path, f))
-    return size
 
 
 def calculatePercentage(part, whole):
@@ -204,7 +67,7 @@ def single_APK(db):
         entry.getappId(), uniquate_list(entry.getappToPrmRelation()))
 
 
-def main(options, arguments, prepared):
+def main(options, arguments, prepared, servant):
         # set log level
     if (options.log != None):
         try:
@@ -218,7 +81,7 @@ def main(options, arguments, prepared):
 
     # Reset Database & Exit
     if (options.Reset != None and 'yes' in raw_input('Reset database? ')):
-		resetDatabase(prepared)
+		servant.reset_database(prepared)
 		exit(1)
 
     # Malicious Folder
@@ -238,7 +101,6 @@ def main(options, arguments, prepared):
                 prepared.inform('Malicious folder set to default')
                 prepared.write_log_error(
                     "Path %s does not contain '.apk' or '.vir' files" % options.malicious_folder)
-                # log.error("Path %s does not contain '.apk' or '.vir' files" % options.malicious_folder)
         except Exception, err:
             prepared.set_parser_error("Malicious folder path is not valid.")
     else:
@@ -280,7 +142,7 @@ def main(options, arguments, prepared):
 
     # reset Database
     if (options.reset != None):
-		resetDatabase(prepared)
+		servant.reset_database(prepared)
 		prepared.inform("Resetting databse......[OK]")
 		return
 
@@ -296,7 +158,7 @@ def main(options, arguments, prepared):
 		
 		execution_dispatch(options.testing_mode, prepared)
 		'''
-        if (options.testing_mode == str(1) or 'FOLDERS' in options.testing_mode):
+        if (options.testing_mode == str(1) or 'FOLDERS' in options.testing_mode): DONE
 			
             folders(db)
         elif (options.testing_mode == str(2) or 'SET' in options.testing_mode):
@@ -309,17 +171,8 @@ def main(options, arguments, prepared):
 
     
 
-def extractCSV():
-    createDir()
-    tables = ('APPLICATIONS', 'API', 'PERMISSION', 'APPtoPRM', 'APPtoAPI')
-    pool = Pool(5)
-    pool.map(createFile, tables)
-    pool.close()
-    pool.join()
-
-
-def getInputData():
-    sd = Data(_directory_csv)
+def getInputData(prepared):
+    sd = Data(prepared.get_csv_directory())
     feature_vector = superFeatureVector(sd)
     return sd, feature_vector
 
@@ -357,18 +210,20 @@ def getMostAccurateModel(results):  # 1
 '''
 
 if __name__ == "__main__":
-    p = Preparation()
-    opt = p.get_options()
-    options, args = p.read_options(opt)
-    main(options, args, p)
+    prepared = Preparation()
+    servant = Servant()
+    opt = prepared.get_options()
+    options, args = prepared.read_options(opt)
+    start = timer()
+    main(options, args, prepared, servant)
 
-    exit()
+    #exit()
     end_analysis = timer()
 
-    extractCSV()
+    servant.extractCSV()
 
     start_fv = timer()
-    data_set, feature_vector = getInputData()
+    data_set, feature_vector = servant.getInputData(prepared)
     end_fv = timer()
     conf = 'model_training.config'
     start_tune = timer()
@@ -393,7 +248,7 @@ if __name__ == "__main__":
     # produce Report
     global size
     report = Report("{0:.2f}".format(end-start), "{0:.2f}".format(end_analysis-start), "{0:.2f}".format(end_fv-start_fv), "{0:.2f}".format(end_tune-start_tune),
-                    "{0:.2f}".format(end_train-start_train), BEN_FOLDER, MAL_FOLDER, size)
+                    "{0:.2f}".format(end_train-start_train), prepared.get_benign_directory(), prepared.get_malicous_directory(), prepared.get_size())
     report.setAccuracy(best['accuracy'])
     report.setClassifier(decision[0])
     report.setF1(best['f1'])

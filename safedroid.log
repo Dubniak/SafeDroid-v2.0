@@ -1,6 +1,6 @@
-2018-09-30 15:46:51,847 - preparation.py: INFO: write_log_info(): 104:	Malicious folder set to /home/marios/Downloads/group2/malicious
-2018-09-30 15:46:51,851 - preparation.py: INFO: write_log_info(): 104:	Benign folder set to /home/marios/Downloads/group1/benign/
-2018-09-30 15:46:51,860 - sql_db.py: ERROR: executeQuery(): 312:	CREATE TABLE `SafeDroid`.`APPLICATIONS` 
+2018-10-22 14:07:31,288 - preparation.py: INFO: write_log_info(): 104:	Malicious folder set to /home/marios/Downloads/group2/malicious
+2018-10-22 14:07:31,288 - preparation.py: INFO: write_log_info(): 104:	Benign folder set to /home/marios/Downloads/group2/benign/
+2018-10-22 14:07:31,293 - sql_db.py: ERROR: executeQuery(): 312:	CREATE TABLE `SafeDroid`.`APPLICATIONS` 
                     ( `AppId` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
                     `Name` VARCHAR(100) NOT NULL DEFAULT 'nameless' ,
                     `Md5` VARCHAR(32) NOT NULL ,
@@ -9,7 +9,7 @@
                     UNIQUE `AppId` (`AppId`))
                     ENGINE = InnoDB;
 (1050, "Table 'APPLICATIONS' already exists")
-2018-09-30 15:46:51,860 - sql_db.py: ERROR: executeQuery(): 312:	CREATE TABLE `SafeDroid`.`API` 
+2018-10-22 14:07:31,294 - sql_db.py: ERROR: executeQuery(): 312:	CREATE TABLE `SafeDroid`.`API` 
                     ( `ApiId` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
                     `Name` VARCHAR(100) NOT NULL DEFAULT 'none' ,
                     `MalOcc` INT NOT NULL DEFAULT '0' , 
@@ -18,7 +18,7 @@
                     PRIMARY KEY (`ApiId`))
                     ENGINE = InnoDB;
 (1050, "Table 'API' already exists")
-2018-09-30 15:46:51,860 - sql_db.py: ERROR: executeQuery(): 312:	CREATE TABLE `SafeDroid`.`PERMISSION` 
+2018-10-22 14:07:31,294 - sql_db.py: ERROR: executeQuery(): 312:	CREATE TABLE `SafeDroid`.`PERMISSION` 
                     ( `PrmId` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
                     `Name` VARCHAR(100) NOT NULL DEFAULT 'none' ,
                     `MalOcc` INT NOT NULL DEFAULT '0' , 
@@ -27,17 +27,71 @@
                     PRIMARY KEY (`PrmId`))
                     ENGINE = InnoDB;
 (1050, "Table 'PERMISSION' already exists")
-2018-09-30 15:46:51,860 - sql_db.py: ERROR: executeQuery(): 312:	CREATE TABLE `SafeDroid`.`APPtoPRM`
+2018-10-22 14:07:31,295 - sql_db.py: ERROR: executeQuery(): 312:	CREATE TABLE `SafeDroid`.`APPtoPRM`
                     (`AppId` INT UNSIGNED NOT NULL,
                     `PrmId` INT UNSIGNED NOT NULL,
                     PRIMARY KEY pk_APPtoPRM (`AppId`,`PrmId`))
                     ENGINE = InnoDB;
                     
 (1050, "Table 'APPtoPRM' already exists")
-2018-09-30 15:46:51,860 - sql_db.py: ERROR: executeQuery(): 312:	CREATE TABLE `SafeDroid`.`APPtoAPI`
+2018-10-22 14:07:31,295 - sql_db.py: ERROR: executeQuery(): 312:	CREATE TABLE `SafeDroid`.`APPtoAPI`
                     (`AppId` INT UNSIGNED NOT NULL,
                     `ApiId` INT UNSIGNED NOT NULL,
                     PRIMARY KEY pk_APPtoAPI (`AppId`,`ApiId`))
                     ENGINE = InnoDB; 
                     
 (1050, "Table 'APPtoAPI' already exists")
+2018-10-22 14:07:31,628 - sql_db.py: DEBUG: executeQuery(): 308:	SELECT * FROM `APPLICATIONS` WHERE `Md5` = 'c226197fd934c4f175cfbad97144a781' AND `Name`='jp.bravo.honda'; 
+2018-10-22 14:07:31,629 - sql_db.py: DEBUG: executeQuery(): 308:	 SELECT * FROM `APPtoAPI` WHERE `AppId` = 1
+2018-10-22 14:07:31,647 - sql_db.py: DEBUG: executeQuery(): 308:	SELECT * FROM `APPLICATIONS` WHERE `Md5` = 'f913d874cee8de45a60f472817beb1c4' AND `Name`='com.load.wap'; 
+2018-10-22 14:07:31,648 - sql_db.py: DEBUG: executeQuery(): 308:	 SELECT * FROM `APPtoAPI` WHERE `AppId` = 2
+2018-10-22 14:07:31,760 - sql_db.py: DEBUG: executeQuery(): 308:	SELECT * FROM `APPLICATIONS` WHERE `Md5` = '388f93d7b27db9552b6de4dba7746e99' AND `Name`='com.convertoman.proin'; 
+2018-10-22 14:07:31,760 - sql_db.py: DEBUG: executeQuery(): 308:	 SELECT * FROM `APPtoAPI` WHERE `AppId` = 3
+2018-10-22 14:07:31,808 - sql_db.py: DEBUG: executeQuery(): 308:	SELECT * FROM `APPLICATIONS` WHERE `Md5` = '1150dbf19bca89205c0615646dc97e73' AND `Name`='none'; 
+2018-10-22 14:07:31,809 - sql_db.py: DEBUG: executeQuery(): 308:	 SELECT * FROM `APPtoAPI` WHERE `AppId` = 5
+2018-10-22 14:07:31,821 - sql_db.py: DEBUG: executeQuery(): 308:	SELECT * FROM `APPLICATIONS` WHERE `Md5` = 'b9af0faedef0dbba0f63ae4b5ab2768e' AND `Name`='com.load.wap'; 
+2018-10-22 14:07:31,822 - sql_db.py: DEBUG: executeQuery(): 308:	 SELECT * FROM `APPtoAPI` WHERE `AppId` = 4
+2018-10-22 14:07:31,823 - sql_db.py: DEBUG: executeQuery(): 308:	SELECT * FROM `APPLICATIONS` WHERE `Md5` = '113b191de66e0b72309b20824996e162' AND `Name`='mobi.az.uk.football.liverpoolfc'; 
+2018-10-22 14:07:31,823 - sql_db.py: DEBUG: executeQuery(): 308:	 SELECT * FROM `APPtoAPI` WHERE `AppId` = 6
+2018-10-22 14:07:31,833 - sql_db.py: DEBUG: executeQuery(): 308:	SELECT * FROM `APPLICATIONS` WHERE `Md5` = '7a50d9c600e7d663de1ddb506e5fa7b3' AND `Name`='com.smith.johnathan.sinyrealestate'; 
+2018-10-22 14:07:31,833 - sql_db.py: DEBUG: executeQuery(): 308:	 SELECT * FROM `APPtoAPI` WHERE `AppId` = 7
+2018-10-22 14:07:31,871 - sql_db.py: DEBUG: executeQuery(): 308:	SELECT * FROM `APPLICATIONS` WHERE `Md5` = 'b74c4f09775ab612656c778f582a892c' AND `Name`='com.mobilepearls.flashlight'; 
+2018-10-22 14:07:31,871 - sql_db.py: DEBUG: executeQuery(): 308:	 SELECT * FROM `APPtoAPI` WHERE `AppId` = 8
+2018-10-22 14:07:31,884 - sql_db.py: DEBUG: executeQuery(): 308:	SELECT * FROM `APPLICATIONS` WHERE `Md5` = 'ed4a66e38e109833597a3699b793ce61' AND `Name`='none'; 
+2018-10-22 14:07:31,884 - sql_db.py: DEBUG: executeQuery(): 308:	 SELECT * FROM `APPtoAPI` WHERE `AppId` = 9
+2018-10-22 14:07:31,946 - sql_db.py: DEBUG: executeQuery(): 308:	SELECT * FROM `APPLICATIONS` WHERE `Md5` = 'ffcda0b9444925cfaccc49692ae231b3' AND `Name`='none'; 
+2018-10-22 14:07:31,946 - sql_db.py: DEBUG: executeQuery(): 308:	 SELECT * FROM `APPtoAPI` WHERE `AppId` = 11
+2018-10-22 14:07:32,064 - sql_db.py: DEBUG: executeQuery(): 308:	SELECT * FROM `APPLICATIONS` WHERE `Md5` = 'daf8e08c5ae0fe45318ad9bcb3c3ac9e' AND `Name`='com.convertoman.proin'; 
+2018-10-22 14:07:32,064 - sql_db.py: DEBUG: executeQuery(): 308:	 SELECT * FROM `APPtoAPI` WHERE `AppId` = 10
+2018-10-22 14:07:32,075 - sql_db.py: DEBUG: executeQuery(): 308:	SELECT * FROM `APPLICATIONS` WHERE `Md5` = '94e38a1142403ea688f8ba53471ea733' AND `Name`='net.highteq'; 
+2018-10-22 14:07:32,075 - sql_db.py: DEBUG: executeQuery(): 308:	 SELECT * FROM `APPtoAPI` WHERE `AppId` = 12
+2018-10-22 14:07:32,108 - sql_db.py: DEBUG: executeQuery(): 308:	SELECT * FROM `APPLICATIONS` WHERE `Md5` = '04ffd31131034b1c0f1671a6a25d2460' AND `Name`='dk.southbound.creepiness'; 
+2018-10-22 14:07:32,108 - sql_db.py: DEBUG: executeQuery(): 308:	 SELECT * FROM `APPtoAPI` WHERE `AppId` = 13
+2018-10-22 14:07:32,146 - sql_db.py: DEBUG: executeQuery(): 308:	SELECT * FROM `APPLICATIONS` WHERE `Md5` = '9d9b0e24c753755a55a03096391284bf' AND `Name`='none'; 
+2018-10-22 14:07:32,146 - sql_db.py: DEBUG: executeQuery(): 308:	 SELECT * FROM `APPtoAPI` WHERE `AppId` = 14
+2018-10-22 14:07:32,174 - sql_db.py: DEBUG: executeQuery(): 308:	SELECT * FROM `APPLICATIONS` WHERE `Md5` = 'd64fb5115d0e09b7785624ad67f39c8a' AND `Name`='jp.PinwheelM101.WaPushReceiverFree'; 
+2018-10-22 14:07:32,175 - sql_db.py: DEBUG: executeQuery(): 308:	 SELECT * FROM `APPtoAPI` WHERE `AppId` = 16
+2018-10-22 14:07:32,191 - sql_db.py: DEBUG: executeQuery(): 308:	SELECT * FROM `APPLICATIONS` WHERE `Md5` = '720fefd8ec825a788f8a4dad5446793c' AND `Name`='com.dmf.wall.BrahmanmaJjuzriiFree'; 
+2018-10-22 14:07:32,192 - sql_db.py: DEBUG: executeQuery(): 308:	 SELECT * FROM `APPtoAPI` WHERE `AppId` = 17
+2018-10-22 14:07:32,262 - sql_db.py: DEBUG: executeQuery(): 308:	SELECT * FROM `APPLICATIONS` WHERE `Md5` = '141034dfcbbb87aa2914fd2481d28326' AND `Name`='com.convertoman.proin'; 
+2018-10-22 14:07:32,262 - sql_db.py: DEBUG: executeQuery(): 308:	 SELECT * FROM `APPtoAPI` WHERE `AppId` = 15
+2018-10-22 14:07:32,400 - sql_db.py: DEBUG: executeQuery(): 308:	SELECT * FROM `APPLICATIONS` WHERE `Md5` = '6a378e282935d1996cc14fc90bbee3af' AND `Name`='none'; 
+2018-10-22 14:07:32,401 - sql_db.py: DEBUG: executeQuery(): 308:	 SELECT * FROM `APPtoAPI` WHERE `AppId` = 18
+2018-10-22 14:07:32,452 - sql_db.py: DEBUG: executeQuery(): 308:	SELECT * FROM `APPLICATIONS` WHERE `Md5` = '1a7fc9f2a7ee6e52a01ac28bf03b313e' AND `Name`='ru.installer.droid.ui'; 
+2018-10-22 14:07:32,453 - sql_db.py: DEBUG: executeQuery(): 308:	 SELECT * FROM `APPtoAPI` WHERE `AppId` = 19
+2018-10-22 14:07:32,499 - sql_db.py: DEBUG: executeQuery(): 308:	SELECT * FROM `APPLICATIONS` WHERE `Md5` = '14fbdba5be1d50f799fddb4046d26592' AND `Name`='ru.installer.droid.ui'; 
+2018-10-22 14:07:32,500 - sql_db.py: DEBUG: executeQuery(): 308:	 SELECT * FROM `APPtoAPI` WHERE `AppId` = 20
+2018-10-22 14:07:32,649 - sql_db.py: DEBUG: executeQuery(): 308:	SELECT * FROM `APPLICATIONS` WHERE `Md5` = '0172ab3595a61477b9c1f22d52e91637' AND `Name`='com.convertoman.proin'; 
+2018-10-22 14:07:32,649 - sql_db.py: DEBUG: executeQuery(): 308:	 SELECT * FROM `APPtoAPI` WHERE `AppId` = 21
+2018-10-22 14:07:32,835 - sql_db.py: DEBUG: executeQuery(): 308:	SELECT * FROM `APPLICATIONS` WHERE `Md5` = 'b464c6b777be62b9df3f4f77f788a3d9' AND `Name`='jp.bravo.honda'; 
+2018-10-22 14:07:32,835 - sql_db.py: DEBUG: executeQuery(): 308:	 SELECT * FROM `APPtoAPI` WHERE `AppId` = 22
+2018-10-22 14:07:32,963 - sql_db.py: DEBUG: executeQuery(): 308:	SELECT * FROM `APPLICATIONS` WHERE `Md5` = 'a51b4164c1ea39433210763f35b222b3' AND `Name`='tj.alumberinc.ruganovich'; 
+2018-10-22 14:07:32,963 - sql_db.py: DEBUG: executeQuery(): 308:	 SELECT * FROM `APPtoAPI` WHERE `AppId` = 23
+2018-10-22 14:07:33,145 - sql_db.py: DEBUG: executeQuery(): 308:	SELECT * FROM `APPLICATIONS` WHERE `Md5` = 'f0df420ac95dd435c380c3dd88541d3b' AND `Name`='com.soft.android.appinstaller'; 
+2018-10-22 14:07:33,146 - sql_db.py: DEBUG: executeQuery(): 308:	 SELECT * FROM `APPtoAPI` WHERE `AppId` = 24
+2018-10-22 14:07:33,287 - sql_db.py: DEBUG: executeQuery(): 308:	SELECT * FROM `APPLICATIONS` WHERE `Md5` = '993a6cc639fe50d542c59df541856517' AND `Name`='tj.alumberinc.ruganovich'; 
+2018-10-22 14:07:33,287 - sql_db.py: DEBUG: executeQuery(): 308:	 SELECT * FROM `APPtoAPI` WHERE `AppId` = 25
+2018-10-22 14:07:46,969 - Algorithm_Comparison.py: ERROR: parameter_estimation(): 626:	Cannot estimate parameters for AdaBoostClassifier(algorithm='SAMME.R', base_estimator=None,
+          learning_rate=1.0, n_estimators=50, random_state=None).
+Reason:
+2018-10-22 14:07:46,969 - Algorithm_Comparison.py: ERROR: parameter_estimation(): 627:	Parameter values for parameter (n_estimators) need to be a non-empty sequence.

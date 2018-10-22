@@ -1,7 +1,7 @@
 """
 Part of the SafeDroid v2.0 FrameWork.
 Author : Arygriou Marios
-Year : 2017
+Year : 2018
 The framework is distributed under the GNU General Public License v3.0
 """
 from vectors import Applications, AppToApi, API
@@ -16,6 +16,10 @@ import multiprocessing
 import collections
 
 
+"""
+	class Data represents database entries and correlations to dataframes. 
+	Dataframes are attributes of the class and logic is applied to them at creation time.
+"""
 class Data:
     def __init__(self, dir_name):
         _columnNames = [['api', 'malicious', 'benign', 'ratio'],  # api

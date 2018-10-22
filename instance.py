@@ -71,7 +71,6 @@ class Instance:
         else:
             print 'No name. md5 checksum: ' + self.getMD5()
         print 'API : '
-
         i = 0
         for a in self.api:
             print '\t' + str(i) + '.' + a

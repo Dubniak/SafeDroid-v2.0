@@ -111,5 +111,5 @@ class Report:
         target.write("Negative Prediction Value: %.2f\n" % self.npv)
         target.write("True Positive Rate: %.2f\n" % self.tpr)
         target.write("False Positive Rate: %.2f\n" % self.fpr)
-        target.write("\n End of Report\n\n")
+        target.write("\nEnd of Report\n\n")
         target.close()
