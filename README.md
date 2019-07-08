@@ -44,8 +44,8 @@ with the ones of the mysql settings, the schema can be set up to anything as it 
 ## Configure predection model ##
 SafeDroid allows the selection of the settings for the creation of the prediction model. Configure the file model_training.conf. The file looks like :
 
-`
-DATA SET CONFIGURATION
+
+`DATA SET CONFIGURATION
 sample_reduce_size : [1]
 malicious_size : [1]
 threshold : [0.2]
@@ -57,9 +57,7 @@ TRAINING CONFIGURATION
 cv : [5]
 test_size : [0.3] 
 display_plots : [0]
-plot_to_file : [0]
-
-`
+plot_to_file : [0]`
 
 
 ## Execution ##
