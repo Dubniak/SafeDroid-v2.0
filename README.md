@@ -11,7 +11,7 @@ The main goal of our work, besides the automated production of fully sufficient 
 models, is to offer an out-of-the-box framework that 
 can be employed by the Android security researchers to efficiently experiment to find effective solutions: the 
 framework makes it possible to test different combinations of machine learning classifiers, with a high degree of freedom and flexibility in the choice of features to consider, 
-such as dataset balance and dataset selection. For more detailed information, please read the [published research paper](https://www.hindawi.com/journals/scn/2018/4672072/)
+such as dataset balance and dataset selection. For more detailed information, read the [published research paper](https://www.hindawi.com/journals/scn/2018/4672072/).
 
 ## Installation ##
 SD runs on Python 2.7. 
