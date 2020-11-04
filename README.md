@@ -41,7 +41,7 @@ To be able to run SafeDroid, a mysql client is required. Follow the installation
 properly the file database.conf. This is a configuration file and it's needed in order to establish communication with the mysql server. The host, username and password must agree 
 with the ones of the mysql settings, the schema can be set up to anything as it is going to be created during execution. 
 
-## Configure predection model ##
+## Configure prediction model ##
 SafeDroid allows the selection of the settings for the creation of the prediction model. Configure the file model_training.conf. The file looks like :
 
 ```
